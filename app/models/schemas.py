@@ -20,7 +20,7 @@ class GenerateRequest(BaseModel):
 
 class GenerateResponse(BaseModel):
     topic: str = Field(..., description="A compelling, short topic for the next video")
-    script: str = Field(..., min_length=100, description="The full, complete script for the video, optimized for spoken delivery and the requested duration. MUST be a complete sentence and not cut off.")
+    script: str = Field(..., description="The full, complete script for the video, optimized for spoken delivery and the requested duration. MUST be a complete sentence and not cut off.")
 
 class VisualPhrasesRequest(BaseModel):
     topic: str = Field(..., description="The video topic")
