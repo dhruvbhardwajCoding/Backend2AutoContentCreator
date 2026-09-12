@@ -18,9 +18,16 @@ class GenerateRequest(BaseModel):
     channel: ChannelConfig
     recentVideos: List[RecentVideo] = Field(default_factory=list)
 
+class MemeCue(BaseModel):
+    trigger: str = Field(..., description="The phrase or sentence fragment in the script that triggers this meme")
+    assetFolder: str = Field(default="", description="The Cloudinary folder name for the meme asset")
+
 class GenerateResponse(BaseModel):
     topic: str = Field(..., description="A compelling, short topic for the next video")
     script: str = Field(..., description="The full, complete script for the video, optimized for spoken delivery and the requested duration. MUST be a complete sentence and not cut off.")
+    visualPhrases: List[str] = Field(default_factory=list, description="List of 4-6 concise visual search phrases for Pexels/GIPHY image retrieval")
+    memeCues: List[MemeCue] = Field(default_factory=list, description="List of 0-2 meme/reaction cues where a meme asset would boost engagement")
+    musicType: str = Field(default="motivational", description="The mood/type of background music. One of: motivational, dramatic, funny, energetic, emotional, calm")
 
 class VisualPhrasesRequest(BaseModel):
     topic: str = Field(..., description="The video topic")
