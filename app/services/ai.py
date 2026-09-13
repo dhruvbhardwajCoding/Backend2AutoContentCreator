@@ -9,7 +9,7 @@ def generate_video_content(request_data: GenerateRequest) -> GenerateResponse:
     llm = ChatGoogleGenerativeAI(
         model=model_name,
         temperature=0.7,
-        max_output_tokens=2048,
+        max_output_tokens=1024,
         thinking_budget=0,  
     )
     
