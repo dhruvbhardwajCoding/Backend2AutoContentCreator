@@ -5,7 +5,7 @@ from app.prompts.content import CONTENT_STRATEGY_PROMPT
 
 def generate_video_content(request_data: GenerateRequest) -> GenerateResponse:
     # Initialize the LLM
-    model_name = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    model_name = os.getenv("GEMINI_MODEL", "gemini-3.6-flash")
     llm = ChatGoogleGenerativeAI(
         model=model_name,
         temperature=0.7,
@@ -23,11 +23,18 @@ def generate_video_content(request_data: GenerateRequest) -> GenerateResponse:
     else:
         recent_topics_str = "No recent videos. This is the first video."
         
+    from app.prompts.content import NICHE_PROMPTS
+    
+    niche_prompt = NICHE_PROMPTS.get(request_data.channel.niche, NICHE_PROMPTS["default"])
+    custom_prompt = request_data.channel.customPrompt or "No custom instructions provided."
+    
     # Format the prompt
     prompt_val = CONTENT_STRATEGY_PROMPT.format(
         channel_name=request_data.channel.name,
         niche=request_data.channel.niche,
+        niche_prompt=niche_prompt,
         description=request_data.channel.description or "No specific description provided.",
+        custom_prompt=custom_prompt,
         language=request_data.channel.language,
         duration=request_data.channel.duration,
         recent_topics=recent_topics_str

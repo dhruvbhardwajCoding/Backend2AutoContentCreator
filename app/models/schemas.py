@@ -7,6 +7,7 @@ class ChannelConfig(BaseModel):
     language: str = Field(default="en", description="The language of the content")
     duration: int = Field(default=30, description="Target duration of the video in seconds")
     description: Optional[str] = Field(None, description="Detailed instructions from the user on content style and focus")
+    customPrompt: Optional[str] = Field(None, description="Custom instructions from the user (e.g., 'Start with a question')")
     videosPerDay: int = Field(default=1, description="Number of videos generated per day")
 
 class RecentVideo(BaseModel):
