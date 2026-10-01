@@ -28,6 +28,7 @@ app.include_router(generate_router, tags=["Generate"])
 from app.routes.visual_phrases import router as visual_phrases_router
 app.include_router(visual_phrases_router, tags=["Visual Phrases"])
 
+
 if __name__ == "__main__":
     import uvicorn
     port = int(os.getenv("PORT", 8000))
